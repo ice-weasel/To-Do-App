@@ -1,38 +1,52 @@
-.App {
+
+body,
+div,
+h1,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+
+.text-class {
+  color: white;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.center-text {
+  text-align: start; 
+   /* Center the text horizontally within its container */
+  position: static;
+  margin-top: 50px;
+  padding:20px;
+  /* This value should be adjusted as needed */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.flex-cols {
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
+  align-items: flex-start;
+  width: 100%; /* Remove the quotes around 100% */
+  background: black;
+}
+
+.cols {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  padding-top: 150px;
+}
+
+
+.bg-image {
+  background-image: url("/public/mountain.jpg");
+  height: 350px;
+  display: flex; 
+  flex-direction: column;
+  background-repeat: no-repeat;
+  
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  justify-content:space-between;
+  background-position: center;
 }

@@ -1,0 +1,207 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    position:static;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .input__box {
+    width: 100%;
+    border-radius: 20px;
+    padding: 20px 30px;
+    justify-content: baseline;
+    font-size: 12px;
+    border: none;
+    position: static;
+    transition: 0.2s;
+    box-shadow: inset 0 0 5px black;
+  }
+  
+  .input__box:focus {
+    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
+    outline: none;
+  }
+  
+  .input_submit {
+    position: static;
+    width: 50px;
+    height: 50px;
+    margin: 12px;
+    border-radius: 50px;
+    right: 0px;
+    border: none;
+    font-size: 15px;
+    background-color: #2f74c0;
+    color: white;
+    transition: 0.2s all;
+    box-shadow: 0 0 10px black;
+  }
+  
+  .input_submit:hover {
+    background-color: #388ae2;
+  }
+  
+  .input_submit:active {
+    transform: scale(0.8);
+    box-shadow: 0 0 5px black;
+  }
+  
+  .container {
+    display: flex;
+    padding: 50px;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  
+  .todos {
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column; 
+    padding: 20px;
+    width: 125%;
+    align-self: center;
+    background-color: white;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dragactive {
+    background-color: rgb(0, 221, 236);
+  }
+  
+  .dragcomplete {
+    background-color: rgb(255, 38, 0);
+    align-self: flex-start;
+  }
+  
+  .remove {
+    background-color: transparent;
+  }
+ 
+ 
+
+  .todos__heading {
+    font-size: 15px;
+    color: black;
+  }
+  
+  .todos__single {
+    display: flex;
+    flex-direction:row;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 15px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    transition: 0.2s;
+  }
+  .drag {
+    box-shadow: 0 0 20px black;
+  }
+  
+  .todos__single:hover {
+    box-shadow: 0 0 5px black;
+    transform: scale(1.03);
+  }
+  
+  .todos__single--text {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    font-size: 20px;
+  }
+  
+  .todos__single--text:focus {
+    outline: none;
+    text-align: center;
+
+    
+  }
+
+  
+  .view-button {
+    outline: none;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    background-color: transparent;  
+    cursor: pointer;
+    color: inherit; /* Ensure text color remains unchanged */
+    transition: color 0.2s; /* Smooth transition for color change */
+  }
+  
+  .view-button:hover {
+    color: blue; /* Change the text color to blue on hover */
+  }
+  
+  .button-view {
+    outline: none;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    background-color: transparent;  
+    cursor: pointer;
+    color: inherit; /* Ensure text color remains unchanged */
+    transition: color 0.2s; /* Smooth transition for color change */
+  }
+  
+
+
+  .item-count {
+    display: flex;
+    align-self: flex-start;
+    margin-top: 10px; 
+    font-size: 13px;
+  }
+  .footer-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  
+}
+
+  /*.icons-end
+  {
+    align-items: start;
+  }
+  */
+
+  .icon_delete {
+    font-size: 22px;
+    cursor: pointer;
+    margin-left: auto;
+    align-self: center; /* Push icon_delete to the right end (end of the div) */
+  }
+  
+  .icon_done {
+    font-size: 20px;
+    cursor: pointer;
+    align-self: center;
+    margin-right: 50px; 
+  }
+
+
+
+  @media (max-width: 1100px) {
+    .todos {
+      width: 45%;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .input {
+      width: 95%;
+    }
+    .container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .todos {
+      width: 95%;
+      margin-bottom: 10px;
+    }
+  }
