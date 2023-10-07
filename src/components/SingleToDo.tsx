@@ -35,7 +35,22 @@ const SingleTodo: React.FC<{
   };
 
   const handleDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    // Check if the task is in the completedTodos list
+    const isTaskInCompletedTodos = completedTodos.some(
+      (completedTodo) => completedTodo.id === id
+    );
+
+    // If the task is in completedTodos, remove it from there
+    if (isTaskInCompletedTodos) {
+      const updatedCompletedTodos = completedTodos.filter(
+        (completedTodo) => completedTodo.id !== id
+      );
+      setCompletedTodos(updatedCompletedTodos);
+    }
+
+    // Remove the task from todos
+    const updatedTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(updatedTodos);
   };
 
   const handleDone = (id: number) => {
