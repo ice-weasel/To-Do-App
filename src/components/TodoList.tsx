@@ -22,6 +22,15 @@ const TodoList: React.FC<Props> = ({
     setView(newView);
   };
 
+  const handleClearCompleted = () => {
+    // Filter out completed tasks and update the todos state
+    const updatedTodos = todos.filter((todo) => !todo.isDone);
+    setTodos(updatedTodos);
+
+    // Clear the completed todos by updating the completedTodos state
+    setCompletedTodos([]);
+  };
+
   // Filter tasks based on the current view
   const filteredTodos =
     view === "active"
@@ -42,7 +51,7 @@ const TodoList: React.FC<Props> = ({
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <span>Enter your tasks here</span>
+           
             {filteredTodos.map((todo, index) => (
               <SingleTodo
                 index={index}
@@ -60,7 +69,15 @@ const TodoList: React.FC<Props> = ({
                 {remainingTodosCount}{" "}
                 {remainingTodosCount === 1 ? "item" : "items"} remaining
               </div>
-              <div className="button-view">
+              <div className="clear">
+                <button
+                  onClick={handleClearCompleted}
+                  className={`view-button ${view === "all" ? "active" : ""}`}
+                >
+                  Clear Completed
+                </button>
+              </div>
+              <div className="button-div">
                 <button
                   onClick={() => handleToggleView("all")}
                   className={`view-button ${view === "all" ? "active" : ""}`}

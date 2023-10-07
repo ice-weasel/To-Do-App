@@ -76,7 +76,6 @@ const SingleTodo: React.FC<{
           ) : (
             <span className="todos__single--text">{todo.todo}</span>
           )}
-
           <span className="icon_delete" onClick={() => handleDelete(todo.id)}>
             <AiFillDelete />
           </span>

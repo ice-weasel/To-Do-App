@@ -1,12 +1,18 @@
 .input {
     display: flex;
     flex-direction: column;
-    width: 95%;
-    position:static;
-    justify-content: space-between;
+    width: 125%;
     align-items: center;
   }
   
+  .todose{
+    background-color: transparent;
+    border:transparent;
+    outline: transparent;
+  }
+
+  
+
   .input__box {
     width: 100%;
     border-radius: 20px;
@@ -60,7 +66,7 @@
     display: flex;
     flex-direction: column; 
     padding: 20px;
-    width: 125%;
+    width: 150%;
     align-self: center;
     background-color: white;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
@@ -79,9 +85,7 @@
     background-color: transparent;
   }
  
- 
-
-  .todos__heading {
+.todos__heading {
     font-size: 15px;
     color: black;
   }
@@ -113,12 +117,9 @@
   
   .todos__single--text:focus {
     outline: none;
-    text-align: center;
-
-    
+    text-align: center; 
   }
 
-  
   .view-button {
     outline: none;
     border: none;
@@ -127,6 +128,7 @@
     align-items: flex-end;
     background-color: transparent;  
     cursor: pointer;
+    font-size: 10px;
     color: inherit; /* Ensure text color remains unchanged */
     transition: color 0.2s; /* Smooth transition for color change */
   }
@@ -135,7 +137,7 @@
     color: blue; /* Change the text color to blue on hover */
   }
   
-  .button-view {
+  .clear {
     outline: none;
     border: none;
     display: flex;
@@ -146,14 +148,25 @@
     color: inherit; /* Ensure text color remains unchanged */
     transition: color 0.2s; /* Smooth transition for color change */
   }
-  
 
+
+  .button-div {
+    outline: none;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    background-color: transparent;  
+    cursor: pointer;
+    color: inherit; /* Ensure text color remains unchanged */
+    transition: color 0.2s; /* Smooth transition for color change */
+  }
 
   .item-count {
     display: flex;
     align-self: flex-start;
     margin-top: 10px; 
-    font-size: 13px;
+    font-size: 10px;
   }
   .footer-div{
     display: flex;
