@@ -12,6 +12,44 @@
   }
 
   
+body,
+div,
+h1,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+
+.text-class {
+  color: white;
+  text-align: center;
+}
+
+.center-text {
+  text-align: start; 
+   /* Center the text horizontally within its container */
+  position: static;
+  margin-top: 50px;
+  padding:20px;
+  /* This value should be adjusted as needed */
+}
+
+.bg-image {
+  position: relative;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url("/public/mountain.jpg");
+  
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+  
 
   .input__box {
     width: 100%;
