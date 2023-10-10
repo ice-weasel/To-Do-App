@@ -1,26 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
-export interface IAboutPageProps {}
+export default function AboutPage() {
 
-const AboutPage: React.FunctionComponent<IAboutPageProps> = (props) => {
-    const [message, setMessage] = useState('');
-    const { number } = useParams();
+    return(
+        <h1>About Page</h1>
+    )
 
-    useEffect(() => {
-        if (number) {
-            setMessage('The number is ' + number);
-        } else {
-            setMessage('No number was provided');
-        }
-    }, [number]);
-
-    return (
-        <div>
-            <p>This is the about page.</p>
-            <p>{message}</p>
-        </div>
-    );
-};
-
-export default AboutPage;
+}

@@ -5,14 +5,13 @@ import TodoList from "../components/TodoList";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { Todo } from "../models/model";
 import HomePage from "./HomePage";
-
+import LoginPage from "./LoginPage";
 
 const ToDoFinal: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
   const [todos, setTodos] = useState<Array<Todo>>([]);
   const [CompletedTodos, setCompletedTodos] = useState<Array<Todo>>([]);
 
-  
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -61,25 +60,22 @@ const ToDoFinal: React.FC = () => {
     setTodos(active);
   };
 
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
- 
-    <div className="bg-image">
-      <div className="center-text">
-        <h1 className="center-text">T O D O</h1>
-        <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />  
-    </div>
-    <TodoList
+      <div className="bg-image">
+        <div className="text-div">
+          <h1 className="text-div">T O D O</h1>
+          <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
+        </div>
+        <TodoList
           todos={todos}
           setTodos={setTodos}
           completedTodos={CompletedTodos}
-          setCompletedTodos={setCompletedTodos} 
-        /> 
-      </div>  
-     
-   </DragDropContext>
+          setCompletedTodos={setCompletedTodos}
+        />
+      </div>
+    </DragDropContext>
   );
-}
+};
 
 export default ToDoFinal;
