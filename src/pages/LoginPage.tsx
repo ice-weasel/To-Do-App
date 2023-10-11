@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../components/styles.css";
-
-interface User {
-  email: string;
-  password: string;
-}
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -13,19 +8,29 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    const storedUser = JSON.parse(localStorage.getItem("user") || "{}") as User;
+    // Retrieve the array of users from local storage
+    const usersJSON = localStorage.getItem("users");
+    
+    if (usersJSON) {
+      const users = JSON.parse(usersJSON);
 
-    if (storedUser.email === email && storedUser.password === password) {
-      // Login successful, you can redirect or perform any other action here
-      alert("Login successful");
-      // Redirect to another page or perform further actions
-      navigate("/dashboard"); // Replace '/dashboard' with the desired route
+      // Find a user with matching email and password
+      const matchingUser = users.find((user: { email: string; password: string; }) => user.email === email && user.password === password);
+
+      if (matchingUser) {
+        // Login successful, you can redirect or perform any other action here
+        localStorage.setItem("loggedInUser", JSON.stringify(usersJSON));
+       
+        navigate("/to-do-final");
+      } else {
+        // Login failed
+        alert("Login failed. Please check your email and password.");
+      }
     } else {
-      // Login failed
-      alert("Login failed. Please check your email and password.");
+      // No users found in local storage
+      alert("No users found. Please sign up first.");
     }
   };
-
   return (
     <div className="bg-image">
       <div className="text-div">
@@ -56,22 +61,20 @@ const LoginPage = () => {
           <div className="signup-buttons">
             <button className="signup" onClick={handleLogin}>
               Login
-              <Link to="/ToDoFinal">
-                <div className="iconButton">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                  >
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                    <path
-                      fill="currentColor"
-                      d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                    ></path>
-                  </svg>
-                </div>
-              </Link>
+              <div className="iconButton">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                  <path
+                    fill="currentColor"
+                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                  ></path>
+                </svg>
+              </div>
             </button>
           </div>
         </div>

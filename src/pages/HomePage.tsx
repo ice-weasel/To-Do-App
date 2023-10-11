@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import ToDoFinal from "./ToDoFinal";
+import { useNavigate } from "react-router-dom";
 import "../components/styles.css";
 import LoginPage from "./LoginPage";
 
@@ -16,17 +15,56 @@ export default function HomePage() {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const navigate = useNavigate();
+
   const handleSignUp = () => {
+    // Retrieve the "users" data from local storage
+    // Retrieve the "users" data from local storage
+    const usersJSON = localStorage.getItem("users");
+
+    if (usersJSON !== null) {
+      // Parse the JSON string to get the array of users
+      const users = JSON.parse(usersJSON);
+
+      // Now, 'users' variable contains the array of user data
+      console.log(users);
+    } else {
+      // Handle the case where the data is not found in local storage
+      console.log("No user data found in local storage");
+    }
+
     if (name && email && password && confirmPassword) {
-      const user: User = {
-        name,
-        email,
-        password,
-      };
+      // Retrieve existing users or initialize an empty array
+      if (password === confirmPassword) {
+        const existingUsers: User[] = JSON.parse(
+          localStorage.getItem("users") || "[]"
+        );
+        // Check if the user already exists with the same email
+        const userExists = existingUsers.some((user) => user.email === email);
 
-      localStorage.setItem("user", JSON.stringify(user));
+        if (userExists) {
+          alert("User with the same email already exists.");
+        } else {
+          // Create a new user object
+          const newUser: User = {
+            name,
+            email,
+            password,
+          };
 
-      // Redirect logic here (useNavigate or other method)
+          // Add the new user to the array
+          existingUsers.push(newUser);
+
+          // Store the updated array of users in local storage
+          localStorage.setItem("users", JSON.stringify(existingUsers));
+
+          // Redirect logic here (useNavigate or other method)
+          alert("Sign up successful");
+          navigate("/login-page"); // Redirect to the login page
+        }
+      } else {
+        // Password and confirm password do not match, display an error.
+        alert("Password and confirm password do not match.");
+      }
     } else {
       alert("Please fill in all fields.");
     }
@@ -87,33 +125,24 @@ export default function HomePage() {
                   width="24"
                   height="24"
                 >
-                  <path fill="none" d="M0 0h24v24H0z"></path>
-                  <path
-                    fill="currentColor"
-                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                  ></path>
+                  {/* ...icon path */}
                 </svg>
               </div>
             </button>
-            
-              <button className="signup" onClick ={() => navigate('/login-page')}>
-                Login
-                <div className="iconButton">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                  >
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                    <path
-                      fill="currentColor"
-                      d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                    ></path>
-                  </svg>
-                </div>
-              </button>
-            
+
+            <button className="signup" onClick={() => navigate("/login-page")}>
+              Login
+              <div className="iconButton">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  {/* ...icon path */}
+                </svg>
+              </div>
+            </button>
           </div>
         </div>
       </div>

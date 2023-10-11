@@ -29,8 +29,17 @@ const TodoList: React.FC<Props> = ({
 
     // Clear the completed todos by updating the completedTodos state
     setCompletedTodos([]);
-  };
 
+    // Remove completed tasks from local storage
+    const loggedInUserJSON = localStorage.getItem("loggedInUser");
+    if (loggedInUserJSON) {
+      const loggedInUser = JSON.parse(loggedInUserJSON);
+      localStorage.setItem(`userTodo_${loggedInUser}`, JSON.stringify({ todos: updatedTodos, completedTodos: [] }));
+      console.log("Completed tasks removed from local storage.");
+
+      
+    }
+  };
   // Filter tasks based on the current view
   const filteredTodos =
     view === "active"
@@ -51,7 +60,6 @@ const TodoList: React.FC<Props> = ({
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-           
             {filteredTodos.map((todo, index) => (
               <SingleTodo
                 index={index}
@@ -108,3 +116,4 @@ const TodoList: React.FC<Props> = ({
 };
 
 export default TodoList;
+

@@ -10,61 +10,114 @@ interface Todo {
   isDone: boolean;
 }
 
-const SingleTodo: React.FC<{
+interface SingleTodoProps {
   index: number;
   todo: Todo;
-  todos: Array<Todo>;
-  setTodos: React.Dispatch<React.SetStateAction<Array<Todo>>>;
-  completedTodos: Array<Todo>;
-  setCompletedTodos: React.Dispatch<React.SetStateAction<Array<Todo>>>;
-}> = ({ index, todo, todos, setTodos, completedTodos, setCompletedTodos }) => {
-  const [edit, setEdit] = useState<boolean>(false);
-  const [editTodo, setEditTodo] = useState<string>(todo.todo);
+  todos: Todo[];
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  completedTodos: Todo[];
+  setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+}
 
-  const inputRef = useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    inputRef.current?.focus();
+const SingleTodo: React.FC<SingleTodoProps> = ({
+  index,
+  todo,
+  todos,
+  setTodos,
+  completedTodos,
+  setCompletedTodos,
+}) => {
+  const [edit, setEdit] = React.useState<boolean>(false);
+  const [editTodo, setEditTodo] = React.useState<string>(todo.todo);
+
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const loggedInUser = "YOUR_USER";
+
+  React.useEffect(() => {
+    if (edit) {
+      inputRef.current?.focus();
+    }
   }, [edit]);
 
   const handleEdit = (e: React.FormEvent, id: number) => {
     e.preventDefault();
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, todo: editTodo } : todo))
+    setTodos((prevTodos) =>
+      prevTodos.map((prevTodo) =>
+        prevTodo.id === id ? { ...prevTodo, todo: editTodo } : prevTodo
+      )
     );
     setEdit(false);
   };
 
   const handleDelete = (id: number) => {
-    // Check if the task is in the completedTodos list
     const isTaskInCompletedTodos = completedTodos.some(
       (completedTodo) => completedTodo.id === id
     );
-
-    // If the task is in completedTodos, remove it from there
+  
     if (isTaskInCompletedTodos) {
       const updatedCompletedTodos = completedTodos.filter(
         (completedTodo) => completedTodo.id !== id
       );
       setCompletedTodos(updatedCompletedTodos);
+      updateLocalStorage(updatedCompletedTodos, todos);
+      console.log(`Task with ID ${id} has been deleted from completedTodos.`);
     }
-
-    // Remove the task from todos
+  
     const updatedTodos = todos.filter((todo) => todo.id !== id);
     setTodos(updatedTodos);
+    updateLocalStorage(completedTodos, updatedTodos);
+    console.log(`Task with ID ${id} has been deleted from todos.`);
   };
-
+  
   const handleDone = (id: number) => {
-    const doneTodo = todos.find((todo) => todo.id === id);
-
-    if (doneTodo) {
-      const updatedTodos = todos.filter((todo) => todo.id !== id);
-      const updatedCompletedTodos = [...completedTodos, { ...doneTodo, isDone: true }];
-
-      setTodos(updatedTodos);
+    const taskIndexInCompleted = completedTodos.findIndex((todo) => todo.id === id);
+    const taskIndexInActive = todos.findIndex((todo) => todo.id === id);
+  
+    if (taskIndexInCompleted !== -1) {
+      // Task is already in completedTodos, mark it as not done
+      const updatedCompletedTodos = [...completedTodos];
+      const taskToMove = updatedCompletedTodos.splice(taskIndexInCompleted, 1)[0]; // Remove the task from completedTodos
+      taskToMove.isDone = false; // Mark it as not done
+      const updatedActiveTodos = [...todos, taskToMove]; // Add it to activeTodos
+  
       setCompletedTodos(updatedCompletedTodos);
+      setTodos(updatedActiveTodos);
+      updateLocalStorage(updatedCompletedTodos, updatedActiveTodos);
+  
+      console.log(`Task with ID ${id} marked as Not Done.`);
+    } else if (taskIndexInActive !== -1) {
+      // Task is in activeTodos, mark it as done
+      const updatedActiveTodos = [...todos];
+      const taskToMove = updatedActiveTodos.splice(taskIndexInActive, 1)[0]; // Remove the task from activeTodos
+      taskToMove.isDone = true; // Mark it as done
+      const updatedCompletedTodos = [...completedTodos, taskToMove]; // Add it to completedTodos
+  
+      setCompletedTodos(updatedCompletedTodos);
+      setTodos(updatedActiveTodos);
+      updateLocalStorage(updatedCompletedTodos, updatedActiveTodos);
+  
+      console.log(`Task with ID ${id} marked as Done.`);
     }
   };
-
+  
+  
+  
+  const logAllTasks = (completed: Todo[], remaining: Todo[]) => {
+    console.log("All Active Tasks:");
+    console.log(remaining);
+    console.log("All Completed Tasks:");
+    console.log(completed);
+  };
+  
+  // Function to update local storage with tasks data
+  const updateLocalStorage = (completed: Todo[], remaining: Todo[]) => {
+    const userTodoData = { todos: remaining, completedTodos: completed };
+    const userTodoDataJSON = JSON.stringify(userTodoData);
+    localStorage.setItem(`userTodo_${loggedInUser}`, userTodoDataJSON);
+    console.log("Data stored in local storage:", userTodoDataJSON);
+  };
+  
   return (
     <Draggable draggableId={todo.id.toString()} index={index}>
       {(provided, snapshot: DraggableStateSnapshot) => (
@@ -89,7 +142,13 @@ const SingleTodo: React.FC<{
           ) : todo.isDone ? (
             <s className="todos__single--text">{todo.todo}</s>
           ) : (
-            <span className="todos__single--text">{todo.todo}</span>
+            <span
+              className={`todos__single--text ${
+                todo.todo.length > 20 ? "long-text" : ""
+              }`}
+            >
+              {todo.todo}
+            </span>
           )}
           <span className="icon_delete" onClick={() => handleDelete(todo.id)}>
             <AiFillDelete />
@@ -101,3 +160,5 @@ const SingleTodo: React.FC<{
 };
 
 export default SingleTodo;
+
+
