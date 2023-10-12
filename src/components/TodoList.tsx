@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Todo } from "../models/model";
 import SingleTodo from "./SingleToDo";
-import { Droppable } from "react-beautiful-dnd";
 
 interface Props {
   todos: Array<Todo>;
   setTodos: React.Dispatch<React.SetStateAction<Array<Todo>>>;
   completedTodos: Array<Todo>;
   setCompletedTodos: React.Dispatch<React.SetStateAction<Array<Todo>>>;
+  handleToggleComplete: (taskId: number) => void;
 }
 
 const TodoList: React.FC<Props> = ({
@@ -15,6 +15,7 @@ const TodoList: React.FC<Props> = ({
   setTodos,
   completedTodos,
   setCompletedTodos,
+  handleToggleComplete,
 }) => {
   const [view, setView] = useState<"all" | "active" | "completed">("all");
 
@@ -53,12 +54,11 @@ const TodoList: React.FC<Props> = ({
 
   return (
     <div className="container">
-      <Droppable droppableId="TodoList">
-        {(provided, snapshot) => (
+     
+        
           <div
-            className={`todos ${snapshot.isDraggingOver ? "dragactive" : ""}`}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
+            className={`todos`}
+           
           >
             {filteredTodos.map((todo, index) => (
               <SingleTodo
@@ -71,7 +71,7 @@ const TodoList: React.FC<Props> = ({
                 setCompletedTodos={setCompletedTodos}
               />
             ))}
-            {provided.placeholder}
+            
             <div className="footer-div">
               <div className="item-count">
                 {remainingTodosCount}{" "}
@@ -109,8 +109,8 @@ const TodoList: React.FC<Props> = ({
               </div>
             </div>
           </div>
-        )}
-      </Droppable>
+      
+      
     </div>
   );
 };
