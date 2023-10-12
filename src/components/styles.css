@@ -1,14 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@1,300&family=Open+Sans&family=Poppins&display=swap');
+
 .input {
   display: flex;
   flex-direction: column;
-  width: 125%;
   align-items: center;
 }
 
-.todose {
-  background-color: transparent;
-  border: transparent;
-  outline: transparent;
+.signout-div{
+  display: flex;
+  align-self: flex-end;
+  
+  
+  margin-top:5px;
+  
+  margin-left: 32px;
 }
 
 .fields {
@@ -20,8 +25,8 @@
   display: flex;
   flex-direction: row;
   margin-top: 15px;
-  justify-content:space-evenly;
-  
+  justify-content: space-evenly;
+
 }
 
 .signup {
@@ -42,7 +47,28 @@
   position: relative;
   height: 2.8em;
   padding-right: 3em;
-  
+
+}
+
+.bn3 {
+  display: inline-block;
+  padding: 0.7em 2.0em;
+  margin: 0 0.5em 0.1em 0;
+  border: 0.18em solid #FFC0CB;
+  border-radius: 2em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  color: #2f74c0;
+  text-shadow: 0 0.04em 0.04em #FFC0CB;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.bn3:hover {
+  color: black;
+  background-color: #FFC0CB;
 }
 
 .arrow-div {
@@ -85,9 +111,9 @@
 }
 
 .name {
-  min-length: 4ch;
+  
   padding: 15px;
-  max-length: 8ch;
+  
 }
 
 body,
@@ -124,13 +150,24 @@ p {
   /* This value should be adjusted as needed */
 }
 
-.text-div {
+.top-div {
   text-align: start;
   /* Center the text horizontally within its container */
-  position: static;
+  display: inline;
+  align-items: center;
+
+  margin-right: 100px;
   margin-top: 50px;
   padding: 20px;
   /* This value should be adjusted as needed */
+}
+
+.text-div {
+  margin-top: 50px;
+  margin-right: 100px;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+
 }
 
 .bg-image {
@@ -157,6 +194,7 @@ p {
   border: none;
   position: static;
   transition: 0.2s;
+  font-family: 'Poppins', sans-serif;
   box-shadow: inset 0 0 5px black;
 }
 
@@ -205,12 +243,10 @@ p {
   align-self: center;
   background-color: white;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-  max-width: 100%; /* Set a maximum width */
-  word-wrap: break-word; /* Wrap long words to the next line */
-  overflow: hidden; /* Hide content that exceeds the container */
-  text-overflow: ellipsis; /* Show ellipsis for overflowing text */
-  white-space: nowrap; /* Prevent text from breaking into multiple lines */
- 
+  max-height: 500px;
+  overflow: hidden visible;
+  word-wrap: break-word;
+  white-space: nowrap;
 }
 
 .dragactive {
@@ -239,9 +275,8 @@ p {
   margin-top: 15px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   transition: 0.2s;
-  height: 50px; /* Set a fixed height for the element */
-  overflow: hidden; /* Hide overflowing text */
 }
+
 .drag {
   box-shadow: 0 0 20px black;
 }
@@ -256,9 +291,11 @@ p {
   padding: 5px;
   border: none;
   font-size: 20px;
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  overflow: hidden; /* Hide overflowing text */
-  text-overflow: ellipsis; /* Add an ellipsis (...) for overflow text */
+  max-width: 200px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
@@ -356,8 +393,22 @@ p {
 @media (max-width: 1100px) {
   .todos {
     max-width: 95%;
-    
+    word-wrap: break-word;
+    white-space: nowrap;
+
   }
+
+  .todos__single--text {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    font-size: 20px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 }
 
 @media (max-width: 700px) {
@@ -375,6 +426,9 @@ p {
   .todos {
     width: 95%;
     margin-bottom: 10px;
+    word-wrap: break-word;
+    white-space: nowrap;
+
   }
 
   .signup-box {

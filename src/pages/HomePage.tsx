@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/styles.css";
-import LoginPage from "./LoginPage";
+
 
 interface User {
   name: string;
@@ -73,11 +73,12 @@ export default function HomePage() {
   return (
     <div className="bg-image">
       <div className="text-div">
-        <h1 className="center-text">SIGN UP</h1>
+        <h1 className="center-text">S I G N &nbsp; U P</h1>
       </div>
       <div className="container">
         <div className="signup-box">
           <div className="fields">
+            
             <label htmlFor="name">Name:</label>
             <input
               type="text"
@@ -87,6 +88,7 @@ export default function HomePage() {
               onChange={(e) => setName(e.target.value)}
               required
             />
+           
             <label htmlFor="email">Enter Email:</label>
             <input
               type="text"
@@ -116,32 +118,13 @@ export default function HomePage() {
             />
           </div>
           <div className="signup-buttons">
-            <button className="signup" onClick={handleSignUp}>
+            <button className="bn3" onClick={handleSignUp}>
               Sign Up
-              <div className="iconButton">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                >
-                  {/* ...icon path */}
-                </svg>
-              </div>
+              
             </button>
 
-            <button className="signup" onClick={() => navigate("/login-page")}>
+            <button className="bn3" onClick={() => navigate("/login-page")}>
               Login
-              <div className="iconButton">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                >
-                  {/* ...icon path */}
-                </svg>
-              </div>
             </button>
           </div>
         </div>
